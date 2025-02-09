@@ -28,8 +28,18 @@ const Menu = ({ session, uname, Mode }: MenuProps) => {
     // console.log(response);
     console.log(Mode);
   });
-  const ParentElements = ["COINS","CART", "RECIPES", "PARENTING CLASSES"];
-  const elements = ["POINTS", "VIRTUAL ASSISTANT", "VIRTUAL MEETUP"];
+  const ParentElements = [
+    { Name: "COINS", Route: "/" },
+    { Name: "CART", Route: "/Store/Cart" },
+    { Name: "RECIPES", Route: "/" },
+    { Name: "PARENTING CLASSES", Route: "/" },
+  ];
+  const elements = [
+    { Name: "POINTS", Route: "/" },
+    { Name: "CART", Route: "/Store/Cart" },
+    { Name: "VIRTUAL ASSISTANT", Route: "/" },
+    { Name: "VIRTUAL MEETUP", Route: "/" },
+  ];
   if (Mode == "Child") {
     return (
       <Sheet>
@@ -40,9 +50,8 @@ const Menu = ({ session, uname, Mode }: MenuProps) => {
         <SheetContent className="bg-[#ffedac] sm:w-full w-[60%]">
           <SheetHeader className="  space-y-5">
             <SheetTitle className="text-center bg-[#bcb497] w-[85%] sm:w-[75%] mx-auto py-2 px-5 rounded-3xl border border-black">
-             
               {/* Profile */}
-             
+
               <Link href={"/"} className="flex">
                 <Image
                   alt="Home Icon"
@@ -56,9 +65,8 @@ const Menu = ({ session, uname, Mode }: MenuProps) => {
             </SheetTitle>
             {session && (
               <SheetDescription className="font-bold text-black sm:w-[75%] space-y-10 mx-auto text-left w-[85%]">
-               
                 {/* Switch Mode */}
-               
+
                 <Link href={"/ParentAuth"} className="flex space-x-2">
                   <Image
                     alt="Home Icon"
@@ -76,25 +84,29 @@ const Menu = ({ session, uname, Mode }: MenuProps) => {
                 </Link>
 
                 {/* Elements */}
-                
+
                 {elements.map((element, index) => {
                   return (
-                    <Link href={"/"} key={index} className="flex space-x-4">
+                    <Link
+                      href={element.Route}
+                      key={index}
+                      className="flex space-x-4"
+                    >
                       <Image
                         alt="Home Icon"
-                        src={`/icons/SheetIcons/ChildIcons/${element}.png`}
+                        src={`/icons/SheetIcons/ChildIcons/${element.Name}.png`}
                         width={1000}
                         height={1000}
                         className="h-10 sm:h-14 w-fit"
                       />
                       {/* <span className="my-auto">{element=="POINTS"?`POINTS - ${response?.Points}` : element}</span> */}
-                      <span className="my-auto">{element}</span>
+                      <span className="my-auto">{element.Name}</span>
                     </Link>
                   );
                 })}
 
                 {/* Logout */}
-                
+
                 <span className="flex">
                   <Image
                     alt="Home Icon"
@@ -171,15 +183,21 @@ const Menu = ({ session, uname, Mode }: MenuProps) => {
 
                   {ParentElements.map((element, index) => {
                     return (
-                      <Link href={"/"} key={index} className="flex space-x-4">
+                      <Link
+                        href={element.Route}
+                        key={index}
+                        className="flex space-x-4"
+                      >
                         <Image
                           alt="Home Icon"
-                          src={`/icons/SheetIcons/ParentIcons/${element}.png`}
+                          src={`/icons/SheetIcons/ParentIcons/${element.Name}.png`}
                           width={1000}
                           height={1000}
                           className="h-10 sm:h-14 w-fit"
                         />
-                        <span className="my-auto text-white">{element}</span>
+                        <span className="my-auto text-white">
+                          {element.Name}
+                        </span>
                       </Link>
                     );
                   })}

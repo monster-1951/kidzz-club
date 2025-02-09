@@ -5,9 +5,9 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 const Store = () => {
-  
   const { toast } = useToast();
 
   const [mode, setMode] = useState<string | null>(null);
@@ -24,7 +24,7 @@ const Store = () => {
     // Fetch products from API
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("/api/fetchProducts"); // Adjust API route if needed
+        const response = await axios.get("/api/store/fetchProducts"); // Adjust API route if needed
         if (response.data.success) {
           setProducts(response.data.products);
         }
@@ -51,7 +51,7 @@ const Store = () => {
     const userName = session.user.username; // Assuming session contains the user's name
 
     try {
-      const response = await axios.post("/api/addToCart", {
+      const response = await axios.post("/api/store/addToCart", {
         productId,
         UserName: userName,
       });
@@ -60,12 +60,7 @@ const Store = () => {
         toast({
           title: "Success",
           description: "Product added to cart!",
-        });
-      } else {
-        toast({
-          title: "Failed",
-          description: "Failed to add product to cart.",
-          variant: "destructive",
+          action: <Link href={'/Store/Cart'} >Go to Cart</Link>
         });
       }
     } catch (error) {
@@ -87,10 +82,10 @@ const Store = () => {
   }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-center p-3">
+    <div className="p-3 mb-28">
+      {/* <h1 className="text-3xl font-bold text-center p-3">
         {mode === "Child Mode" ? "Child Mode Store" : "Parent Mode Store"}
-      </h1>
+      </h1> */}
       {Object.entries(products).map(([category, items]) => (
         <div key={category}>
           <h2 className="text-lg font-bold mt-4">{category}</h2>
