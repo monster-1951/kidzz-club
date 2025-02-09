@@ -65,7 +65,7 @@ const PostDetails = () => {
         <img
           src={post.media}
           alt="Post Media"
-          className="h-64 rounded-lg mt-4 mx-auto"
+          className="h-fit rounded-lg mt-4 mx-auto"
         />
       )}
       <div className="mt-4">
@@ -74,7 +74,7 @@ const PostDetails = () => {
       
       <div className="flex items-center justify-between mt-4">
         <p className="text-gray-500">Categories: {post.category.join(", ")}</p>
-        <p className="text-gray-500">Likes: {post.likes.length}</p>
+       
         <Button variant="outline" className="flex items-center space-x-2">
           <LikeTheBlog
             initialLikes={post.likes.length}

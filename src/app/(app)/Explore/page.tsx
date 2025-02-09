@@ -67,7 +67,10 @@ const PostsList = () => {
                 width={100}
                 height={100}
                 /> */}
-               <Link href={`/Explore/posts/${post._id}`}> <h3 className="text-xl font-semibold">{post.title}</h3></Link>
+                <Link href={`/Explore/posts/${post._id}`}>
+                  {" "}
+                  <h3 className="text-xl font-semibold">{post.title}</h3>
+                </Link>
                 <p className="text-sm text-gray-600">By {post.author}</p>
                 <p className="mt-2">{post.content.substring(0, 100)}...</p>
                 <div className="flex justify-between">
