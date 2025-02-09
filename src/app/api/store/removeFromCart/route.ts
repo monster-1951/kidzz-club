@@ -1,6 +1,4 @@
-import mongoose from "mongoose";
 import UserModel from "@/database/models/User.Model";
-import ProductModel from "@/database/models/Product.Model";
 import dbConnect from "@/database/ConnectDB";
 
 export async function POST(request: Request) {

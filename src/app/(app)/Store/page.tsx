@@ -60,7 +60,7 @@ const Store = () => {
         toast({
           title: "Success",
           description: "Product added to cart!",
-          action: <Link href={'/Store/Cart'} >Go to Cart</Link>
+          action: <Link href={"/Store/Cart"}>Go to Cart</Link>,
         });
       }
     } catch (error) {

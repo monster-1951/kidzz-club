@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Menu from "./Menu";
 import axios from "axios";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import Link from "next/link";
 
 let response: any;
 
@@ -28,7 +30,7 @@ const Header = () => {
         .catch((err) => {
           console.log("Error fetching user:", err);
         });
-      console.log(response);
+      // console.log(response);
       return response;
     }
   };
@@ -70,10 +72,11 @@ const Header = () => {
             {P}
           </div>
         </div>
-        <div className="my-auto -ml-[15%]">
-          WELCOME {session?.user.parentname}
-        </div>
-        <div className="my-auto">
+        <div className="my-auto">WELCOME {session?.user.parentname}</div>
+        <div className="my-auto flex space-x-2">
+          <Link href={`/CreatePost/${session?.user._id}`}>
+            <IoIosAddCircleOutline />
+          </Link>
           <Menu
             session={session ? true : false}
             uname={session?.user.parentname}

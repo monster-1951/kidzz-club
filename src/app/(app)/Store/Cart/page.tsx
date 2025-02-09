@@ -25,7 +25,7 @@ export default function CartDisplay() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
+  
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedMode = localStorage.getItem("Mode");

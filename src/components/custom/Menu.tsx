@@ -15,7 +15,6 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { revalidatePath } from "next/cache";
 
 interface MenuProps {
   session: boolean;
@@ -31,14 +30,12 @@ const Menu = ({ session, uname, Mode }: MenuProps) => {
   const ParentElements = [
     { Name: "COINS", Route: "/" },
     { Name: "CART", Route: "/Store/Cart" },
-    { Name: "RECIPES", Route: "/" },
     { Name: "PARENTING CLASSES", Route: "/" },
   ];
   const elements = [
     { Name: "POINTS", Route: "/" },
     { Name: "CART", Route: "/Store/Cart" },
     { Name: "VIRTUAL ASSISTANT", Route: "/" },
-    { Name: "VIRTUAL MEETUP", Route: "/" },
   ];
   if (Mode == "Child") {
     return (

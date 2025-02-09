@@ -15,7 +15,7 @@ const Footer = () => {
   const ParentElements = [
     { Name: "Home", Route: "/" },
     { Name: "Store", Route: "/Store" },
-    { Name: "Control", Route: "/" },
+    { Name: "Explore", Route: "/Explore" },
     { Name: "Videos", Route: "/" },
     { Name: "Tasks", Route: "/" },
     
