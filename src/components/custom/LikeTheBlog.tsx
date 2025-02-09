@@ -10,8 +10,8 @@ interface LikeTheBlogProps {
 }
 
 const LikeTheBlog = ({ Liked, _id, postId, initialLikes }: LikeTheBlogProps) => {
-  const [isLiked, setIsLiked] = useState<boolean>(Liked);
   const [likesCount, setLikesCount] = useState<number>(initialLikes);
+  const [isLiked, setIsLiked] = useState<boolean>(Liked);
 
   const handleLikeToggle = async () => {
     if (isLiked) {

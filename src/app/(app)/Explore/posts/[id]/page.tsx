@@ -61,16 +61,17 @@ const PostDetails = () => {
       <p className="text-sm text-gray-500">
         {new Date(post.createdAt).toLocaleDateString()}
       </p>
-      <div className="mt-4">
-        <p className="text-lg">{post.content}</p>
-      </div>
       {post.media && (
         <img
           src={post.media}
           alt="Post Media"
-          className="w-full h-64 object-cover rounded-lg mt-4"
+          className="h-64 rounded-lg mt-4 mx-auto"
         />
       )}
+      <div className="mt-4">
+        <p className="text-lg">{post.content}</p>
+      </div>
+      
       <div className="flex items-center justify-between mt-4">
         <p className="text-gray-500">Categories: {post.category.join(", ")}</p>
         <p className="text-gray-500">Likes: {post.likes.length}</p>
