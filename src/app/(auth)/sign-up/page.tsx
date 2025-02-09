@@ -21,6 +21,7 @@ import axios from "axios";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+
 const Register = () => {
   const { toast } = useToast();
   const router = useRouter();

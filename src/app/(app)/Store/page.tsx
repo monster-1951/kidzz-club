@@ -74,11 +74,11 @@ const Store = () => {
   };
 
   if (loading) {
-    return <p>Loading products...</p>;
+    return <p className="flex items-center justify-center h-screen text-lg font-semibold">Loading products...</p>;
   }
 
   if (!products) {
-    return <p>No products available.</p>;
+    return <p className="flex items-center justify-center h-screen text-lg font-semibold">No products available.</p>;
   }
 
   return (

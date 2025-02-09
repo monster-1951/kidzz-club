@@ -47,9 +47,9 @@ const PostDetails = () => {
     fetchPost();
   }, [id]);
 
-  if (loading) return <p className="text-center">Loading post...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
-  if (!post) return <p className="text-center">Post not found.</p>;
+  if (loading) return <p className="flex items-center justify-center h-screen text-lg font-semibold">Loading post...</p>;
+  if (error) return <p className="flex items-center justify-center h-screen text-lg font-semibold text-red-500" >{error}</p>;
+  if (!post) return <p className="flex items-center justify-center h-screen text-lg font-semibold">Post not found.</p>;
 
   const userId = session?.user._id;
   const isLiked = post.likes.includes(userId);

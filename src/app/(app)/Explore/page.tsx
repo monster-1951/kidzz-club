@@ -52,11 +52,22 @@ const PostsList = () => {
 
   console.log(session);
   const id = session?.user._id;
-  if (loading) return <p>Loading posts...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading)
+    return (
+      <p className="flex items-center justify-center h-screen text-lg font-semibold">
+        Loading posts...
+      </p>
+    );
+
+  if (error)
+    return (
+      <p className="flex items-center justify-center h-screen text-lg font-semibold">
+        {error}
+      </p>
+    );
   if (!(mode === "Child Mode")) {
     return (
-      <div className="p-4 space-y-4">
+      <div className="p-4 space-y-4 mb-32">
         <h2 className="text-xl font-bold text-center">Explore blogs</h2>
         {posts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

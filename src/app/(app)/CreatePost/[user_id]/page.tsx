@@ -120,7 +120,7 @@ const CreatePost = ({ params }: { params: Promise<{ user_id: string }> }) => {
 
   if (!userId) {
     // Show a loading indicator while waiting for the user ID
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center h-screen text-lg font-semibold">Loading...</div>;
   }
 
   if (!(mode === "Child Mode")) {

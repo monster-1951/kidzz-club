@@ -25,13 +25,13 @@ export default function CartDisplay() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedMode = localStorage.getItem("Mode");
       setMode(storedMode);
     }
-    console.log(mode)
+    console.log(mode);
     if (status === "loading") return; // Wait until session is loaded
     if (!session?.user?.username) {
       setError("User not authenticated");
@@ -103,10 +103,26 @@ export default function CartDisplay() {
     }
   };
 
-  if (loading) return <p className="text-center text-lg">Loading cart...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
+  if (loading)
+    return (
+      <p className="flex items-center justify-center h-screen text-lg font-semibold">
+        Loading cart...
+      </p>
+    );
+
+  if (error)
+    return (
+      <p className="flex items-center justify-center h-screen text-lg font-semibold text-center text-red-500">
+        {error}
+      </p>
+    );
+
   if (products.length === 0)
-    return <p className="text-center">No items in cart.</p>;
+    return (
+      <p className="flex items-center justify-center h-screen text-lg font-semibold">
+        No items in cart.
+      </p>
+    );
 
   return (
     <>
