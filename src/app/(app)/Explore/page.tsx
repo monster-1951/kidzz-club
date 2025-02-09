@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import LikeTheBlog from "@/components/custom/LikeTheBlog";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Post {
   _id: string;
@@ -56,22 +57,25 @@ const PostsList = () => {
   if (!(mode === "Child Mode")) {
     return (
       <div className="p-4 space-y-4">
-        <h2 className="text-2xl font-bold">All Posts</h2>
+        <h2 className="text-xl font-bold text-center">Explore blogs</h2>
         {posts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {posts.map((post) => (
               <div key={post._id} className="border p-4 rounded-lg shadow-md">
-                {/* <Image
-                alt=""
-                src={post.media}
-                width={100}
-                height={100}
-                /> */}
                 <Link href={`/Explore/posts/${post._id}`}>
                   {" "}
                   <h3 className="text-xl font-semibold">{post.title}</h3>
                 </Link>
                 <p className="text-sm text-gray-600">By {post.author}</p>
+                {/* {post.media && (
+                  <Image
+                    alt=""
+                    src={post.media || ""}
+                    width={100}
+                    height={100}
+                    className="mx-auto"
+                  />
+                )} */}
                 <p className="mt-2">{post.content.substring(0, 100)}...</p>
                 <div className="flex justify-between">
                   <div>
