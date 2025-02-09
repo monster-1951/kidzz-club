@@ -74,13 +74,12 @@ const Header = () => {
         </div>
         <div className="my-auto">WELCOME {session?.user.parentname}</div>
         <div className="my-auto flex space-x-2">
-          <Link href={`/CreatePost/${session?.user._id}`}>
-            <IoIosAddCircleOutline />
-          </Link>
+          
           <Menu
             session={session ? true : false}
             uname={session?.user.parentname}
             Mode="Parent"
+            id={session?.user._id}
           />
         </div>
       </div>

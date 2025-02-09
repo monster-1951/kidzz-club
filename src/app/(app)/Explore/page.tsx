@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import LikeTheBlog from "@/components/custom/LikeTheBlog";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import Image from "next/image";
 
 interface Post {
   _id: string;
@@ -27,17 +26,17 @@ const PostsList = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { data: session } = useSession();
-  useEffect(() => {
-    //   const id = session?.user.
 
+  useEffect(() => {
     const storedMode =
       typeof window !== "undefined" ? localStorage.getItem("Mode") : null;
     setMode(storedMode);
+
     const fetchPosts = async () => {
       try {
         const response = await axios.get("/api/FetchPosts");
         if (response.data.success) {
-          setPosts(response.data.AllPosts);
+          setPosts(response.data.AllPosts.reverse()); // Reverse the order here
         } else {
           throw new Error("Failed to fetch posts");
         }
@@ -51,7 +50,8 @@ const PostsList = () => {
   }, []);
 
   console.log(session);
-  const id = session?.user._id;
+  const id = session?.user?._id;
+
   if (loading)
     return (
       <p className="flex items-center justify-center h-screen text-lg font-semibold">
@@ -65,7 +65,8 @@ const PostsList = () => {
         {error}
       </p>
     );
-  if (!(mode === "Child Mode")) {
+
+  if (mode !== "Child Mode") {
     return (
       <div className="p-4 space-y-4 mb-32">
         <h2 className="text-xl font-bold text-center">Explore blogs</h2>
@@ -74,19 +75,9 @@ const PostsList = () => {
             {posts.map((post) => (
               <div key={post._id} className="border p-4 rounded-lg shadow-md">
                 <Link href={`/Explore/posts/${post._id}`}>
-                  {" "}
                   <h3 className="text-xl font-semibold">{post.title}</h3>
                 </Link>
                 <p className="text-sm text-gray-600">By {post.author}</p>
-                {/* {post.media && (
-                  <Image
-                    alt=""
-                    src={post.media || ""}
-                    width={100}
-                    height={100}
-                    className="mx-auto"
-                  />
-                )} */}
                 <p className="mt-2">{post.content.substring(0, 100)}...</p>
                 <div className="flex justify-between">
                   <div>
@@ -98,10 +89,7 @@ const PostsList = () => {
                     </p>
                   </div>
                   <div>
-                    <Button
-                      variant={"outline"}
-                      className="bg-inherit flex  space-x-2"
-                    >
+                    <Button variant="outline" className="bg-inherit flex space-x-2">
                       <LikeTheBlog
                         Liked={post.likes.includes(id)}
                         _id={id}

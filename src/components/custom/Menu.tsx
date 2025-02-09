@@ -15,13 +15,15 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 interface MenuProps {
   session: boolean;
   uname?: string;
   Mode: "Child" | "Parent";
+  id?: string;
 }
-const Menu = ({ session, uname, Mode }: MenuProps) => {
+const Menu = ({ session, uname, Mode, id }: MenuProps) => {
   useEffect(() => {
     // getUser();
     // console.log(response);
@@ -177,6 +179,21 @@ const Menu = ({ session, uname, Mode }: MenuProps) => {
                         : "Child Mode"}
                     </Button>
                   </span>
+                  <Link
+                    href={`/CreatePost/${id}`}
+                    className="flex space-x-2 h-fit my-auto"
+                  >
+                      <Image
+                        alt="Home Icon"
+                        src={`/icons/SheetIcons/CreatePost.png`}
+                        width={1000}
+                        height={1000}
+                        className="h-10 sm:h-14 w-fit my-auto"
+                      />
+                    <Button className="my-auto border-none bg-inherit text-white font-bold w-[20vh] text-wrap flex">
+                      Post a blog
+                    </Button>
+                  </Link>
 
                   {ParentElements.map((element, index) => {
                     return (
