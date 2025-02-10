@@ -13,23 +13,7 @@ interface Message {
 // Initialize with given chat history
 
 const initialMessages: Message[] = [
-  { role: "user", content: "Who won the FIFA World Cup in 2018?" },
-  {
-    role: "assistant",
-    content: "The French national team won the 2018 FIFA World Cup.",
-  },
-  { role: "user", content: "Who was their captain?" },
-  {
-    role: "assistant",
-    content:
-      "The French national team's captain during the 2018 FIFA World Cup was Hugo Lloris.",
-  },
-  { role: "user", content: "Who is Hugo Lloris" },
-  {
-    role: "assistant",
-    content:
-      "Hugo Lloris is a professional football (soccer) player from France who plays as a goalkeeper. He currently plays for Tottenham Hotspur in the English Premier League and has been the captain of the French national team for several years. Lloris has won numerous accolades throughout his career and is considered one of the top goalkeepers in the world.",
-  },
+ 
 ];
 export default function VirtualAssistant() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
