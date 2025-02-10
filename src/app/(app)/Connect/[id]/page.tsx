@@ -123,7 +123,7 @@ const ConnectWithUser = () => {
   };
 
   return (
-    <div className="w-[85%] sm:w-[60%] md:w-[40%] mx-auto">
+    <div className="w-[85%] sm:w-[60%] md:w-[40%] mx-auto mb-28">
       {/* Profile Card */}
       <div className="bg-[#fee0d6] p-4 flex mt-5 rounded-xl justify-between">
         <div className="w-20 h-20 mx-auto rounded-full mt-5">

@@ -12,9 +12,7 @@ interface Message {
 
 // Initialize with given chat history
 
-const initialMessages: Message[] = [
- 
-];
+const initialMessages: Message[] = [];
 export default function VirtualAssistant() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
@@ -45,7 +43,7 @@ export default function VirtualAssistant() {
   };
 
   return (
-    <div className="w-full sm:w-[70%] max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-2xl border border-gray-200 mb-24">
+    <div className="w-full sm:w-[70%] max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-2xl border border-gray-200 mb-24 overflow-y-scroll ">
       <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
         Virtual Assistant
       </h2>
