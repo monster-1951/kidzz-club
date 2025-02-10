@@ -37,7 +37,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
   const elements = [
     { Name: "POINTS", Route: "/" },
     { Name: "CART", Route: "/Store/Cart" },
-    { Name: "VIRTUAL ASSISTANT", Route: "/" },
+    { Name: "VIRTUAL ASSISTANT", Route: "/VirtualAssistant" },
   ];
   if (Mode == "Child") {
     return (

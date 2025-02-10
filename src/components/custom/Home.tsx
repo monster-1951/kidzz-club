@@ -17,7 +17,7 @@ const Homee = () => {
   if (mode === "Child Mode") {
     return (
       <>
-        <div className="p-3 py-5 grid grid-flow-row md:grid-cols-2  overflow-scroll sm:h-[80vh] space-y-3">
+        <div className="p-3 py-5 grid grid-flow-row md:grid-cols-2  overflow-scroll sm:h-[80vh] space-y-3 mt-5 mb-5">
           <Link
             href={"/"}
             className="h-[65%] sm:h-[80%] flex flex-col justify-center"
@@ -48,7 +48,7 @@ const Homee = () => {
   } else {
     return (
       <>
-        <div className="p-3 py-5 grid grid-flow-row md:grid-cols-2  overflow-scroll sm:h-[80vh] space-y-3">
+        <div className="p-3 py-5 grid grid-flow-row md:grid-cols-2  overflow-scroll sm:h-[80vh] space-y-3 mt-5 mb-5">
           <Link
             href={"/"}
             className="h-[65%] sm:h-[80%] flex flex-col justify-center"

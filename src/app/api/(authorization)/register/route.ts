@@ -15,7 +15,9 @@ export async function POST(request: Request) {
     Password,
     DateOfBirth,
     ParentDateOfBirth,
-    ParentPassword
+    ParentPassword,
+    Location,
+    HobbiesAndInterests
   } = await request.json();
   console.log({
     UserName,
@@ -27,7 +29,9 @@ export async function POST(request: Request) {
     Password,
     DateOfBirth,
     ParentDateOfBirth,
-    ParentPassword
+    ParentPassword,
+    Location,
+    HobbiesAndInterests
   });
 
   const hashedPassword = await bcrypt.hash(Password.toString(),12)
@@ -42,7 +46,9 @@ export async function POST(request: Request) {
     Password:hashedPassword,
     DateOfBirth,
     ParentDateOfBirth,
-    ParentPassword:hashedParentPassword
+    ParentPassword:hashedParentPassword,
+    Location,
+    HobbiesAndInterests
   }
 
   

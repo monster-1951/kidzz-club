@@ -11,6 +11,7 @@ declare module "next-auth" {
     ParentMobileNumber?: number;
     DateOfBirth: string;
     ParentDateOfBirth?: string;
+    Location:string;
   }
   interface Session {
     user: {

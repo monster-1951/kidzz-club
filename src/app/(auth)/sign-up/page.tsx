@@ -21,6 +21,8 @@ import axios from "axios";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { Textarea } from "@/components/ui/textarea";
+import { convertParagraphToSentences } from "@/lib/ConvertParagraphToSentenct";
 
 const Register = () => {
   const { toast } = useToast();
@@ -30,6 +32,17 @@ const Register = () => {
     resolver: zodResolver(registerSchema),
     defaultValues: {
       UserName: "",
+      Location: "",
+      ParentName: "",
+      ParentEmail: "",
+      ParentMobileNumber: "",
+      Password: "",
+      ConfirmPassword: "",
+      DateOfBirth: "",
+      ParentPassword: "",
+      ConfirmParentPassword: "",
+      ParentDateOfBirth: "",
+      HobbiesAndInterests: "",
     },
   });
 
@@ -60,21 +73,16 @@ const Register = () => {
       setSubmitting(false);
     } catch (error) {
       console.error("Error during sign-up:", error);
-
-      // const axiosError = error as AxiosError;
-
-      // Default error message
-
-      ("There was a problem with your sign-up. Please try again.");
       toast({
         title: "Sign Up Failed",
         variant: "destructive",
       });
-      
       setSubmitting(false);
     }
     console.log(values);
+    console.log(convertParagraphToSentences(values.HobbiesAndInterests));
   }
+
   return (
     <div className="h-[250vh] overflow-y-scroll w-[60%] mx-auto my-auto py-3">
       <Form {...form}>
@@ -99,6 +107,20 @@ const Register = () => {
               </FormItem>
             )}
           />
+          {/* Location */}
+          <FormField
+            control={form.control}
+            name="Location"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Location</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your location" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           {/* Child Gender */}
           <FormField
             control={form.control}
@@ -114,12 +136,11 @@ const Register = () => {
                     placeHolder="Gender"
                   />
                 </FormControl>
-                <FormDescription></FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          {/*Child  DOB */}
+          {/* Child Date of Birth */}
           <FormField
             control={form.control}
             name="DateOfBirth"
@@ -130,8 +151,25 @@ const Register = () => {
                   <Input
                     placeholder="Born day of the child"
                     {...field}
-                    onChange={field.onChange}
                     type="date"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Child's Hobbies and Interests */}
+          <FormField
+            control={form.control}
+            name="HobbiesAndInterests"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Hobbies and Interests</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="List hobbies and interests..."
+                    {...field}
+                    className="h-32"
                   />
                 </FormControl>
                 <FormMessage />
@@ -167,12 +205,11 @@ const Register = () => {
                     placeHolder="Gender"
                   />
                 </FormControl>
-                <FormDescription></FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          {/*Parent  DOB */}
+          {/* Parent Date of Birth */}
           <FormField
             control={form.control}
             name="ParentDateOfBirth"
@@ -181,7 +218,7 @@ const Register = () => {
                 <FormLabel>Parent Date of birth</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Born day of the child"
+                    placeholder="Born day of the parent"
                     {...field}
                     type="date"
                   />
@@ -226,7 +263,7 @@ const Register = () => {
               <FormItem>
                 <FormLabel>Create a password</FormLabel>
                 <FormControl>
-                  <Input placeholder="Password" {...field} />
+                  <Input placeholder="Password" {...field} type="password" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -240,7 +277,11 @@ const Register = () => {
               <FormItem>
                 <FormLabel>Confirm password</FormLabel>
                 <FormControl>
-                  <Input placeholder="Confirm Password" {...field} />
+                  <Input
+                    placeholder="Confirm Password"
+                    {...field}
+                    type="password"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -254,7 +295,7 @@ const Register = () => {
               <FormItem>
                 <FormLabel>Create a password for parent</FormLabel>
                 <FormControl>
-                  <Input placeholder="Password" {...field} />
+                  <Input placeholder="Password" {...field} type="password" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -268,12 +309,17 @@ const Register = () => {
               <FormItem>
                 <FormLabel>Confirm Parent password</FormLabel>
                 <FormControl>
-                  <Input placeholder="Confirm Password" {...field} />
+                  <Input
+                    placeholder="Confirm Password"
+                    {...field}
+                    type="password"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <div className="flex justify-between">
             <Link href={"/sign-in"}>
               <Button type="button">Login</Button>

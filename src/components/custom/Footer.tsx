@@ -9,7 +9,7 @@ const Footer = () => {
     { Name: "Home", Route: "/" },
     { Name: "Store", Route: "/Store" },
     { Name: "Videos", Route: "/" },
-    { Name: "Connect", Route: "/" },
+    { Name: "Connect", Route: "/Connect" },
     { Name: "Tution", Route: "/" },
   ];
   const ParentElements = [

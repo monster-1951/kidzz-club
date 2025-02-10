@@ -11,17 +11,36 @@ const UserSchema = new Schema<User>(
     ParentMobileNumber: { type: Number },
     Password: { type: String, required: true },
     DateOfBirth: { type: String, required: true },
-    Points:{type:Number,default:0},
-    ParentPassword:{type:String,required:true},
+    Points: { type: Number, default: 0 },
+    ParentPassword: { type: String, required: true },
     ParentDateOfBirth: { type: String },
-    Cart: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-    }],
+    Cart: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
+    Connections: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    Location: {
+      type: String,
+      required: true,
+    },
+    HobbiesAndInterests: [
+      {
+        type: String,
+      },
+    ],
   },
   { timestamps: true }
 );
 
-const UserModel = mongoose.models.User as mongoose.Model<User> || mongoose.model<User>("User",UserSchema)
+const UserModel =
+  (mongoose.models.User as mongoose.Model<User>) ||
+  mongoose.model<User>("User", UserSchema);
 
-export default UserModel
+export default UserModel;
