@@ -25,31 +25,32 @@ interface MenuProps {
   id?: string;
 }
 const Menu = ({ session, uname, Mode, id }: MenuProps) => {
-  const [coinss, setcoinss] = useState(0)
+  const [coinss, setcoinss] = useState();
   const { toast } = useToast();
   const ToastCoins = async () => {
     console.log("Toast");
     console.log(id);
 
-    if(id){   const response = await axios
-      .post("/api/fetchCoins", { _id: id })
-      .then((res) => {
-        setcoinss(res.data.Coins)
-        console.log(res.data?.Coins);
-        toast({
-          title: "Success",
-          description: `You have ${res.data?.Coins} Coins currently.\n Complete tasks to earn more coins`,
+    if (id) {
+      const response = await axios
+        .post("/api/fetchCoins", { _id: id })
+        .then((res) => {
+          setcoinss(res.data.Coins);
+          console.log(res.data?.Coins);
+          toast({
+            title: "Success",
+            description: `You have ${res.data?.Coins} Coins currently.\n Complete tasks to earn more coins`,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast({
+            title: "Failed to fetch Coins",
+            description: `Try again`,
+            variant: "destructive",
+          });
         });
-      })
-      .catch((err) => {
-        console.log(err);
-        toast({
-          title: "Failed to fetch Coins",
-          description: `Try again`,
-          variant:"destructive"
-        });
-      });}
- 
+    }
   };
 
   useEffect(() => {
@@ -59,8 +60,8 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
   });
 
   useEffect(() => {
-    ToastCoins()
-  },[coinss])
+    ToastCoins();
+  }, [coinss]);
   const ParentElements = [
     { Name: "COINS", Route: "/" },
     { Name: "EVENTS", Route: "/Events" },
@@ -257,7 +258,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
                             onClick={ToastCoins}
                             className="my-auto border-none bg-inherit text-white font-bold w-[20vh] text-wrap flex"
                           >
-                             {coinss}  COINS
+                            {coinss} COINS
                           </Button>
                         ) : (
                           <Button className="my-auto border-none bg-inherit text-white font-bold w-[20vh] text-wrap flex">
