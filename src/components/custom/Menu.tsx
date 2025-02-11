@@ -30,21 +30,13 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
     console.log("Toast");
     console.log(id);
 
-    if(!id){
-      toast({
-        title: "Unauthorized",
-        description: `Login first`,
-        variant:"destructive",
-        action: <Link href={"/sign-in"}>Log In</Link>,
-      });
-    } 
     if(id){   const response = await axios
       .post("/api/fetchCoins", { _id: id })
       .then((res) => {
         console.log(res.data?.Coins);
         toast({
           title: "Success",
-          description: `You have ${res.data?.Coins} Coins currently`,
+          description: `You have ${res.data?.Coins} Coins currently.\n Complete tasks to earn more coins`,
         });
       })
       .catch((err) => {

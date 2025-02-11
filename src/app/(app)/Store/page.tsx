@@ -6,14 +6,49 @@ import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
+import { discountedPrice } from "@/lib/discountedPrice";
 
 const Store = () => {
+  const [coins, setcoins] = useState(0);
   const { toast } = useToast();
+  const { data: session } = useSession();
+  const id = session?.user._id; // Get session data to access user information
+  const ToastCoins = async () => {
+    console.log("Toast");
+    console.log(id);
 
+    if (!id) {
+      toast({
+        title: "Unauthorized",
+        description: `Login first`,
+        variant: "destructive",
+        action: <Link href={"/sign-in"}>Log In</Link>,
+      });
+    }
+    if (id) {
+      const response = await axios
+        .post("/api/fetchCoins", { _id: id })
+        .then((res) => {
+          console.log(res.data?.Coins);
+          setcoins(res.data?.Coins);
+          toast({
+            title: "Success",
+            description: `You have ${res.data?.Coins} Coins currently`,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast({
+            title: "Failed to fetch Coins",
+            description: `Try again`,
+            variant: "destructive",
+          });
+        });
+    }
+  };
   const [mode, setMode] = useState<string | null>(null);
   const [products, setProducts] = useState<Record<string, any[]> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const { data: session } = useSession(); // Get session data to access user information
 
   useEffect(() => {
     // Get Mode from localStorage
@@ -21,6 +56,8 @@ const Store = () => {
       typeof window !== "undefined" ? localStorage.getItem("Mode") : null;
     setMode(storedMode);
 
+    // FetchCoins
+    ToastCoins();
     // Fetch products from API
     const fetchProducts = async () => {
       try {
@@ -37,6 +74,7 @@ const Store = () => {
 
     fetchProducts();
   }, []);
+
 
   const handleAddToCart = async (productId: string) => {
     if (!session || !session.user) {
@@ -74,11 +112,19 @@ const Store = () => {
   };
 
   if (loading) {
-    return <p className="flex items-center justify-center h-screen text-lg font-semibold">Loading products...</p>;
+    return (
+      <p className="flex items-center justify-center h-screen text-lg font-semibold">
+        Loading products...
+      </p>
+    );
   }
 
   if (!products) {
-    return <p className="flex items-center justify-center h-screen text-lg font-semibold">No products available.</p>;
+    return (
+      <p className="flex items-center justify-center h-screen text-lg font-semibold">
+        No products available.
+      </p>
+    );
   }
 
   return (
@@ -106,9 +152,21 @@ const Store = () => {
                   <h3 className="font-semibold">{product.Name}</h3>
                   <p>{product.Description}</p>
                   <div className="flex justify-between w-full">
-                    <p className="text-green-600 font-bold">
-                      &#8377;{product.Price}
-                    </p>
+                    {coins ? (
+                      <div className="flex border-black w-full justify-around my-auto">
+                        <p className="text-black font-bold line-through">
+                          &#8377;{product.Price * 10}
+                        </p>
+                        <p className="text-green-600 font-bold ">
+                          &#8377;
+                          {discountedPrice(product.Price,coins)}
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="text-green-600 font-bold">
+                        &#8377;{product.Price * 10}
+                      </p>
+                    )}
                     <Button
                       className="bg-red-500 text-white"
                       variant={"outline"}

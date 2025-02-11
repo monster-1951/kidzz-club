@@ -5,22 +5,32 @@ import parentTasks from "@/constants/parentTasks";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useToast } from "@/hooks/use-toast";
+import { parentTasksType } from "../../../../types/parentTasksType";
 
 export default function Tasks() {
   const { toast } = useToast();
-  const [tasks, setTasks] = useState(parentTasks);
   const { data: session } = useSession();
 
+  const [tasks, setTasks] = useState<parentTasksType[]>(() => {
+    // Load tasks from localStorage if available, otherwise use parentTasks
+    if (typeof window !== "undefined") {
+      const storedTasks = localStorage.getItem("parentTasks");
+      return storedTasks ? JSON.parse(storedTasks) : parentTasks;
+    }
+    return parentTasks;
+  });
+
   useEffect(() => {
-    const storedTasks = localStorage.getItem("parentTasks");
     const lastResetDate = localStorage.getItem("lastResetDate");
     const today = new Date().toISOString().split("T")[0];
 
-    if (storedTasks && lastResetDate === today) {
-      setTasks(JSON.parse(storedTasks));
-    } else {
+    // Reset tasks only if last reset date is not today
+    if (lastResetDate !== today) {
       resetTasks();
     }
+
+    // Schedule reset at midnight
+    scheduleMidnightReset();
   }, []);
 
   useEffect(() => {
@@ -37,12 +47,25 @@ export default function Tasks() {
     localStorage.setItem("lastResetDate", new Date().toISOString().split("T")[0]);
   };
 
+  const scheduleMidnightReset = () => {
+    const now = new Date();
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0); // Set time to 12:00 AM next day
+
+    const timeUntilMidnight = midnight.getTime() - now.getTime();
+
+    setTimeout(() => {
+      resetTasks();
+      scheduleMidnightReset(); // Schedule next reset
+    }, timeUntilMidnight);
+  };
+
   const updatePoints = async (taskCoins: number, action: "add" | "remove") => {
-    const storedUserId = session?.user._id
+    const storedUserId = session?.user._id;
     if (!storedUserId) {
-      console.log("Id is missing")
-      return
-    };
+      console.log("User ID is missing");
+      return;
+    }
 
     try {
       const res = await axios.post("/api/updateCoins", {
@@ -54,7 +77,7 @@ export default function Tasks() {
       if (res.data.success) {
         toast({
           title: "Success",
-          description: `You earned ${res.data.Points} coins this day`,
+          description: `You earned ${res.data.Points} coins today!`,
         });
         console.log("Updated Points:", res.data.Points);
       }
@@ -67,10 +90,11 @@ export default function Tasks() {
     }
   };
 
-  const toggleTaskStatus =async (index: number) => {
-    console.log("clicked toggle")
+  const toggleTaskStatus = async (index: number) => {
+    console.log("Clicked toggle");
     const task = tasks[index];
-   await updatePoints(task.taskCoins, task.taskStatus === "Completed" ? "remove" : "add");
+    await updatePoints(task.taskCoins, task.taskStatus === "Completed" ? "remove" : "add");
+
     setTasks((prevTasks) =>
       prevTasks.map((task, i) =>
         i === index
@@ -81,8 +105,6 @@ export default function Tasks() {
           : task
       )
     );
-
-   
   };
 
   return (

@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
+import { discountedPrice } from "@/lib/discountedPrice";
 
 interface Product {
   _id: string;
@@ -19,13 +21,47 @@ interface Product {
 }
 
 export default function CartDisplay() {
+  const [coins, setcoins] = useState(0);
   const { toast } = useToast();
   const [mode, setMode] = useState<string | null>(null);
   const { data: session, status } = useSession();
+  const id = session?.user._id;
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const ToastCoins = async () => {
+    console.log("Toast");
+    console.log(id);
 
+    if (!id) {
+      toast({
+        title: "Unauthorized",
+        description: `Login first`,
+        variant: "destructive",
+        action: <Link href={"/sign-in"}>Log In</Link>,
+      });
+    }
+    if (id) {
+      const response = await axios
+        .post("/api/fetchCoins", { _id: id })
+        .then((res) => {
+          console.log(res.data?.Coins);
+          setcoins(res.data?.Coins);
+          toast({
+            title: "Success",
+            description: `You have ${res.data?.Coins} Coins currently`,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast({
+            title: "Failed to fetch Coins",
+            description: `Try again`,
+            variant: "destructive",
+          });
+        });
+    }
+  };
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedMode = localStorage.getItem("Mode");
@@ -33,6 +69,8 @@ export default function CartDisplay() {
     }
     console.log(mode);
     if (status === "loading") return; // Wait until session is loaded
+    // Toast Coins
+    ToastCoins()
     if (!session?.user?.username) {
       setError("User not authenticated");
       setLoading(false);
@@ -139,7 +177,21 @@ export default function CartDisplay() {
             />
             <h2 className="text-lg font-bold mt-2">{product.Name}</h2>
             <p className="text-gray-700">{product.Description}</p>
-            <p className="text-blue-600 font-semibold">₹{product.Price}</p>
+            {coins ? (
+              <div className="flex border-black w-full space-x-4 my-auto justify-end py-3">
+                <p className="text-black font-bold line-through">
+                  &#8377;{product.Price * 10}
+                </p>
+                <p className="text-green-600 font-bold ">
+                  &#8377;
+                  {discountedPrice(product.Price, coins)}
+                </p>
+              </div>
+            ) : (
+              <p className="text-green-600 font-bold">
+                &#8377;{product.Price * 10}
+              </p>
+            )}
             <p className="text-sm text-gray-500">
               Category: {product.Category}
             </p>
