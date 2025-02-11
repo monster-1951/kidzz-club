@@ -33,7 +33,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
     { Name: "COINS", Route: "/" },
     { Name: "EVENTS", Route: "/Events" },
     { Name: "CART", Route: "/Store/Cart" },
-    { Name: "PARENTING CLASSES", Route: "/" },
+    { Name: "PARENTING CLASSES", Route: "/Classes" },
   ];
   const elements = [
     { Name: "POINTS", Route: "/" },
@@ -144,7 +144,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
             {" "}
             <RxHamburgerMenu />
           </SheetTrigger>
-          <SheetContent className="bg-[#ffedac] bg-transparent sm:w-full w-[60%] ">
+          <SheetContent className="bg-[#ffedac] bg-transparent sm:w-full w-[60%] overflow-y-scroll">
             <SheetHeader className="  space-y-5">
               <SheetTitle className="text-center bg-[#bcb497] w-[85%] sm:w-[75%] mx-auto py-2 px-5 rounded-3xl border border-black">
                 <Link href={"/"} className="flex">
@@ -185,13 +185,13 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
                     href={`/CreatePost/${id}`}
                     className="flex space-x-2 h-fit my-auto"
                   >
-                      <Image
-                        alt="Home Icon"
-                        src={`/icons/SheetIcons/CreatePost.png`}
-                        width={1000}
-                        height={1000}
-                        className="h-10 sm:h-14 w-fit my-auto"
-                      />
+                    <Image
+                      alt="Home Icon"
+                      src={`/icons/SheetIcons/CreatePost.png`}
+                      width={1000}
+                      height={1000}
+                      className="h-10 sm:h-14 w-fit my-auto"
+                    />
                     <Button className="my-auto border-none bg-inherit text-white font-bold w-[20vh] text-wrap flex">
                       Post a blog
                     </Button>

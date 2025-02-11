@@ -10,14 +10,14 @@ const Footer = () => {
     { Name: "Store", Route: "/Store" },
     { Name: "Videos", Route: "/" },
     { Name: "Connect", Route: "/Connect" },
-    { Name: "Tution", Route: "/" },
+    { Name: "Tution", Route: "/Classes" },
   ];
   const ParentElements = [
     { Name: "Home", Route: "/" },
     { Name: "Store", Route: "/Store" },
     { Name: "Explore", Route: "/Explore" },
     { Name: "Videos", Route: "/" },
-    { Name: "Tasks", Route: "/" },
+    { Name: "Tasks", Route: "/Tasks" },
     
   ];
   useEffect(() => {
