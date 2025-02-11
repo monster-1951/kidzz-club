@@ -30,7 +30,7 @@ const Footer = () => {
 
   if (mode === "Child Mode") {
     return (
-      <div className="bg-[#edf5e5] text-black flex justify-between fixed bottom-0 z-10 p-5 w-full">
+      <div className="bg-[#edf5e5] h-[10vh] text-black flex justify-between fixed bottom-0 z-10 p-5 w-full">
         {elements.map((element, index) => {
           return (
             <Link href={element.Route} key={index} className="flex flex-col">
@@ -40,7 +40,7 @@ const Footer = () => {
                   src={`/icons/FooterIcons/ChildIcons/${element.Name}.png`}
                   width={1000}
                   height={1000}
-                  className="h-10 sm:h-14 w-fit"
+                  className="h-8 sm:h-10 w-fit mx-auto"
                 />
               </div>
               <div>{element.Name}</div>

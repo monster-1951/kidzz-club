@@ -48,9 +48,9 @@ const Homee = () => {
   } else {
     return (
       <>
-        <div className="p-3 py-5 grid grid-flow-row md:grid-cols-2  overflow-scroll sm:h-[80vh] space-y-3 mt-5 mb-5">
+        <div className="p-3 py-5 grid grid-flow-row md:grid-cols-2  overflow-scroll sm:h-[80vh] space-y-3 mt-5 mb-28">
           <Link
-            href={"/"}
+            href={"/Events"}
             className="h-[65%] sm:h-[80%] flex flex-col justify-center"
           >
             <Image
@@ -62,15 +62,15 @@ const Homee = () => {
             />
           </Link>
           <Link
-            href={"/"}
+            href={"/Classes"}
             className="h-[65%] sm:h-[80%] flex flex-col justify-center"
           >
             <Image
-              src={"/HomeIcons/ParentHome/Child Activities.png"}
+              src={"/HomeIcons/ParentHome/ParentingClasses.png"}
               alt="Home"
               width={1000}
               height={1000}
-              className="rounded-lg h-fit w-[70vh] mx-auto mb-3"
+              className="rounded-lg h-fit w-[50vh] mx-auto mb-3"
             />
           </Link>
         </div>

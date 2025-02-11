@@ -5,7 +5,7 @@ import React from "react";
 const Recipes = () => {
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold text-center mb-6">Indian Recipes</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Recipes</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {Recipies.map((recipe, index) => (
           <div
