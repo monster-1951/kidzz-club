@@ -19,6 +19,7 @@ interface User {
   Location: string;
   Cart: { _id: string; name: string; price: number }[];
   HobbiesAndInterests: string[];
+  Connections:string[]
 }
 
 const Profile = () => {
@@ -117,9 +118,13 @@ const Profile = () => {
               <span className="text-gray-700">{user.Location}</span>
             </div>
             <div className="text-lg bg-gray-50 p-4 rounded-lg shadow-sm">
+              <strong className="text-indigo-600">Connections:</strong>{" "}
+              <span className="text-gray-700">{user.Connections.length}</span>
+            </div>
+            <div className="text-lg bg-gray-50 p-4 rounded-lg shadow-sm">
               <strong className="text-indigo-600">Hobbies & Interests:</strong>{" "}
               <div className="mt-2">
-                {user.HobbiesAndInterests[0].split("\n").map((Hobby, index) => (
+                {user?.HobbiesAndInterests[0]?.split("\n").map((Hobby, index) => (
                   <span key={index} className="block text-gray-700">
                     {Hobby}
                   </span>
