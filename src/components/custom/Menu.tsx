@@ -59,6 +59,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
     { Name: "COINS", Route: "/" },
     { Name: "EVENTS", Route: "/Events" },
     { Name: "CART", Route: "/Store/Cart" },
+    { Name: "RECIPES", Route: "/Recipes" },
     { Name: "PARENTING CLASSES", Route: "/Classes" },
   ];
   const elements = [

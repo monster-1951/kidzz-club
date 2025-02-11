@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import parentTasks from "@/constants/parentTasks";
+import { childTasks } from "@/constants/childTasks"; // Import childTasks
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useToast } from "@/hooks/use-toast";
@@ -11,13 +12,22 @@ export default function Tasks() {
   const { toast } = useToast();
   const { data: session } = useSession();
 
+  const [mode, setMode] = useState<string | null>(null);
+
+  // Initialize tasks based on mode and localStorage
   const [tasks, setTasks] = useState<parentTasksType[]>(() => {
-    // Load tasks from localStorage if available, otherwise use parentTasks
     if (typeof window !== "undefined") {
-      const storedTasks = localStorage.getItem("parentTasks");
-      return storedTasks ? JSON.parse(storedTasks) : parentTasks;
+      const storedMode = localStorage.getItem("Mode");
+      const storedTasks = localStorage.getItem(
+        storedMode === "Parent Mode" ? "parentTasks" : "childTasks"
+      );
+      return storedTasks
+        ? JSON.parse(storedTasks)
+        : storedMode === "Parent Mode"
+        ? parentTasks
+        : childTasks;
     }
-    return parentTasks;
+    return parentTasks; // Default to parentTasks if window is undefined
   });
 
   useEffect(() => {
@@ -34,17 +44,34 @@ export default function Tasks() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("parentTasks", JSON.stringify(tasks));
-  }, [tasks]);
+    const storedMode =
+      typeof window !== "undefined" ? localStorage.getItem("Mode") : null;
+    setMode(storedMode);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      mode === "Parent Mode" ? "parentTasks" : "childTasks",
+      JSON.stringify(tasks)
+    );
+  }, [tasks, mode]);
 
   const resetTasks = () => {
-    const resetTasks = parentTasks.map((task) => ({
-      ...task,
-      taskStatus: "Not Completed",
-    }));
+    const resetTasks = (mode === "Parent Mode" ? parentTasks : childTasks).map(
+      (task:parentTasksType) => ({
+        ...task,
+        taskStatus: "Not Completed",
+      })
+    );
     setTasks(resetTasks);
-    localStorage.setItem("parentTasks", JSON.stringify(resetTasks));
-    localStorage.setItem("lastResetDate", new Date().toISOString().split("T")[0]);
+    localStorage.setItem(
+      mode === "Parent Mode" ? "parentTasks" : "childTasks",
+      JSON.stringify(resetTasks)
+    );
+    localStorage.setItem(
+      "lastResetDate",
+      new Date().toISOString().split("T")[0]
+    );
   };
 
   const scheduleMidnightReset = () => {
@@ -93,14 +120,18 @@ export default function Tasks() {
   const toggleTaskStatus = async (index: number) => {
     console.log("Clicked toggle");
     const task = tasks[index];
-    await updatePoints(task.taskCoins, task.taskStatus === "Completed" ? "remove" : "add");
+    await updatePoints(
+      task.taskCoins,
+      task.taskStatus === "Completed" ? "remove" : "add"
+    );
 
     setTasks((prevTasks) =>
       prevTasks.map((task, i) =>
         i === index
           ? {
               ...task,
-              taskStatus: task.taskStatus === "Completed" ? "Not Completed" : "Completed",
+              taskStatus:
+                task.taskStatus === "Completed" ? "Not Completed" : "Completed",
             }
           : task
       )
@@ -109,7 +140,9 @@ export default function Tasks() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto mb-28">
-      <h1 className="text-2xl font-bold mb-4">Tasks</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        {mode === "Parent Mode" ? "Parent Tasks" : "Child Tasks"}
+      </h1>
       <ul className="space-y-4">
         {tasks.map((task, index) => (
           <li
@@ -127,7 +160,9 @@ export default function Tasks() {
                   Status:{" "}
                   <span
                     className={
-                      task.taskStatus === "Completed" ? "text-green-600" : "text-red-600"
+                      task.taskStatus === "Completed"
+                        ? "text-green-600"
+                        : "text-red-600"
                     }
                   >
                     {task.taskStatus}

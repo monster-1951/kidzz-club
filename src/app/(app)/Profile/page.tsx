@@ -105,7 +105,7 @@ const Profile = () => {
             <div className="text-lg bg-gray-50 p-4 rounded-lg shadow-sm">
               <strong className="text-indigo-600">Date of Birth:</strong>{" "}
               <span className="text-gray-700">
-                {formatDate(user.DateOfBirth)}
+                {(user.DateOfBirth)}
               </span>
             </div>
             <div className="text-lg bg-gray-50 p-4 rounded-lg shadow-sm">

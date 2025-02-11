@@ -31,11 +31,11 @@ const Homee = () => {
             />
           </Link>
           <Link
-            href={"/"}
+            href={"/Tasks"}
             className="h-[65%] sm:h-[80%] flex flex-col justify-center"
           >
             <Image
-              src={"/HomeIcons/ChildHome/BrainGames.png"}
+              src={"/HomeIcons/ChildHome/DailyTasks.png"}
               alt="Home"
               width={1000}
               height={1000}
