@@ -53,13 +53,14 @@ const Header = () => {
           </div>
         </div>
         <div className="my-auto -ml-[15%]">
-          WELCOME {session?.user.username}
+          Welcome {session?.user.username}
         </div>
         <div className="my-auto">
           <Menu
             session={session ? true : false}
             uname={session?.user.username}
             Mode="Child"
+            id={session?.user._id}
           />
         </div>
       </div>
@@ -72,7 +73,7 @@ const Header = () => {
             {P}
           </div>
         </div>
-        <div className="my-auto">WELCOME {session?.user.parentname}</div>
+        <div className="my-auto">Welcome {session?.user.parentname}</div>
         <div className="my-auto flex space-x-2">
           
           <Menu

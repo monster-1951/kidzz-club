@@ -15,7 +15,8 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { IoIosAddCircleOutline } from "react-icons/io";
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
 
 interface MenuProps {
   session: boolean;
@@ -24,6 +25,39 @@ interface MenuProps {
   id?: string;
 }
 const Menu = ({ session, uname, Mode, id }: MenuProps) => {
+  const { toast } = useToast();
+  const ToastCoins = async () => {
+    console.log("Toast");
+    console.log(id);
+
+    if(!id){
+      toast({
+        title: "Unauthorized",
+        description: `Login first`,
+        variant:"destructive",
+        action: <Link href={"/sign-in"}>Log In</Link>,
+      });
+    } 
+    if(id){   const response = await axios
+      .post("/api/fetchCoins", { _id: id })
+      .then((res) => {
+        console.log(res.data?.Coins);
+        toast({
+          title: "Success",
+          description: `You have ${res.data?.Coins} Coins currently`,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast({
+          title: "Failed to fetch Coins",
+          description: `Try again`,
+          variant:"destructive"
+        });
+      });}
+ 
+  };
+
   useEffect(() => {
     // getUser();
     // console.log(response);
@@ -36,7 +70,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
     { Name: "PARENTING CLASSES", Route: "/Classes" },
   ];
   const elements = [
-    { Name: "POINTS", Route: "/" },
+    { Name: "COINS", Route: "/" },
     { Name: "EVENTS", Route: "/Events" },
     { Name: "CART", Route: "/Store/Cart" },
     { Name: "VIRTUAL ASSISTANT", Route: "/VirtualAssistant" },
@@ -100,8 +134,16 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
                         height={1000}
                         className="h-10 sm:h-14 w-fit"
                       />
-                      {/* <span className="my-auto">{element=="POINTS"?`POINTS - ${response?.Points}` : element}</span> */}
-                      <span className="my-auto">{element.Name}</span>
+                      {element.Name == "COINS" ? (
+                        <Button
+                          onClick={ToastCoins}
+                          className="my-auto border-none bg-inherit text-black font-bold px-0"
+                        >
+                          COINS
+                        </Button>
+                      ) : (
+                        <span className="my-auto">{element.Name}</span>
+                      )}
                     </Link>
                   );
                 })}
@@ -211,9 +253,18 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
                           height={1000}
                           className="h-10 sm:h-14 w-fit"
                         />
-                        <span className="my-auto text-white">
-                          {element.Name}
-                        </span>
+                        {element.Name == "COINS" ? (
+                          <Button
+                            onClick={ToastCoins}
+                            className="my-auto border-none bg-inherit text-white font-bold w-[20vh] text-wrap flex"
+                          >
+                            COINS
+                          </Button>
+                        ) : (
+                          <Button className="my-auto border-none bg-inherit text-white font-bold w-[20vh] text-wrap flex">
+                            {element.Name}
+                          </Button>
+                        )}
                       </Link>
                     );
                   })}
@@ -227,7 +278,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
                       className="h-10 sm:h-14 w-fit"
                     />
                     <Button
-                      className="my-auto border-none bg-inherit text-white font-bold"
+                      className="my-auto border-none bg-inherit text-white font-bold w-[20vh] text-wrap flex"
                       onClick={() => {
                         signOut();
                       }}
