@@ -86,7 +86,7 @@ export default function Tasks() {
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className="p-6 max-w-3xl mx-auto mb-28">
       <h1 className="text-2xl font-bold mb-4">Tasks</h1>
       <ul className="space-y-4">
         {tasks.map((task, index) => (
