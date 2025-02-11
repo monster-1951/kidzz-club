@@ -31,11 +31,13 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
   });
   const ParentElements = [
     { Name: "COINS", Route: "/" },
+    { Name: "EVENTS", Route: "/Events" },
     { Name: "CART", Route: "/Store/Cart" },
     { Name: "PARENTING CLASSES", Route: "/" },
   ];
   const elements = [
     { Name: "POINTS", Route: "/" },
+    { Name: "EVENTS", Route: "/Events" },
     { Name: "CART", Route: "/Store/Cart" },
     { Name: "VIRTUAL ASSISTANT", Route: "/VirtualAssistant" },
   ];
