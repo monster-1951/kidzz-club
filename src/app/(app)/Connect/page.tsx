@@ -21,17 +21,17 @@ interface User {
 const Connect = () => {
   const [users, setUsers] = useState<User[]>([]); // Set initial state to empty array
   const { data: session } = useSession();
-  const location = session?.user.location
-  const username = session?.user.username
+  const location = session?.user.location;
+  const username = session?.user.username;
   // const { location, username } = session?.user;
   useEffect(() => {
     const fetchData = async () => {
-      console.log({location,username});
+      console.log({ location, username });
       const response = await FetchUsersByLocation(location, username);
       if (response.success) {
         setUsers(response.users || []); // Ensure to set users if present
       } else {
-        console.error("Error:", response.message);
+        console.log("Error:", response);
       }
     };
 
@@ -44,7 +44,7 @@ const Connect = () => {
   }, [session]); // Empty dependency array to call fetchData once on component mount
 
   return (
-    <>
+    <div className="h-fit mb-28">
       <Image
         alt="Connect"
         src={"/ConnectPage/Buddies_Near_you.png"}
@@ -57,7 +57,7 @@ const Connect = () => {
           {users.length > 0 ? (
             users.map((user, index) => (
               <Link href={`/Connect/${user._id}`} key={index}>
-                <div className="bg-[#bfa0ff] mx-auto w-[85%] font-thin p-5 rounded-xl flex justify-between">
+                <div className="bg-[#bfa0ff] mx-auto w-[85%] font-medium p-5 rounded-xl flex justify-between">
                   <Image
                     alt="Connect"
                     src={"/ConnectPage/Profile.png"}
@@ -83,7 +83,7 @@ const Connect = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -87,7 +87,8 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
             <SheetTitle className="text-center bg-[#bcb497] w-[85%] sm:w-[75%] mx-auto py-2 px-5 rounded-3xl border border-black">
               {/* Profile */}
 
-              <Link href={"/Profile"} className="flex">
+              <Link href={"/Profile"} className="flex flex-col space-y-2">
+                <div className="flex">
                 <Image
                   alt="Home Icon"
                   src={`/icons/SheetIcons/User.png`}
@@ -95,7 +96,9 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
                   height={1000}
                   className="h-10 sm:h-14 w-fit"
                 />{" "}
-                <span className=" my-auto "> {uname || "PROFILE"}</span>
+                <span className=" my-auto "> {uname?.slice(0,4)+"..." || "PROFILE"}</span>
+                </div>
+                <Button className="mx-auto my-auto">Go to Profile</Button>
               </Link>
             </SheetTitle>
             {session && (
