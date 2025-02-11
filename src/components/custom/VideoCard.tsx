@@ -1,5 +1,7 @@
 // Define the Video type if needed
 
+import Image from "next/image";
+
 interface VideoCardProps {
   video: {
     id: string;
@@ -14,10 +16,12 @@ interface VideoCardProps {
 const VideoCard = ({ video }: VideoCardProps) => {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-      <img
+      <Image
         src={video.thumbnail}
         alt={video.title}
-        className="w-full h-48 object-cover"
+        className="w-fit h-48 mx-auto"
+        width={1000}
+        height={1000}
       />
       <div className="p-4">
         <h3 className="font-semibold text-lg mb-2">{video.title}</h3>
@@ -26,6 +30,7 @@ const VideoCard = ({ video }: VideoCardProps) => {
           <span>{video.views} views</span>
           <span>{video.duration}</span>
         </div>
+      
       </div>
     </div>
   );
