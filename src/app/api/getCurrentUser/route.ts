@@ -1,44 +1,40 @@
-import { NextRequest } from "next/server";
-import dbConnect from "@/database/ConnectDB";
+;import dbConnect from "@/database/ConnectDB";
 import UserModel from "@/database/models/User.Model";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     const { id } = await request.json(); // ✅ Extract id from request body
     console.log(id, "🤖🤖🤖🤖");
 
     if (!id) {
-      return new Response(
-        JSON.stringify({ success: false, error: "ID is required" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return Response.json({
+        success: false,
+        status: 400,
+        error: "ID is required",
+      });
     }
 
     await dbConnect();
     const user = await UserModel.findById(id);
 
     if (!user) {
-      return new Response(
-        JSON.stringify({ success: false, error: "User not found" }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return Response.json({
+        success: false,
+        status: 400,
+        error: "User not found",
+      });
     }
-
-    return new Response(JSON.stringify({ success: true, user }), {
+    return Response.json({
+      success: true,
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      user,
     });
   } catch (error) {
     console.error("Error in finding the user", error);
-    return new Response(JSON.stringify({ success: false, error: error }), {
+    return Response.json({
+      success: false,
       status: 500,
-      headers: { "Content-Type": "application/json" },
+      error: error,
     });
   }
 }

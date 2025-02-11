@@ -16,7 +16,7 @@ const Footer = () => {
     { Name: "Home", Route: "/" },
     { Name: "Store", Route: "/Store" },
     { Name: "Explore", Route: "/Explore" },
-    { Name: "Videos", Route: "/" },
+    { Name: "Videos", Route: "/Videos" },
     { Name: "Tasks", Route: "/Tasks" },
     
   ];

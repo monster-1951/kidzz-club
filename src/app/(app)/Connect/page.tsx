@@ -21,10 +21,13 @@ interface User {
 const Connect = () => {
   const [users, setUsers] = useState<User[]>([]); // Set initial state to empty array
   const { data: session } = useSession();
-
+  const location = session?.user.location
+  const username = session?.user.username
+  // const { location, username } = session?.user;
   useEffect(() => {
     const fetchData = async () => {
-      const response = await FetchUsersByLocation("Khaansaar", "Deva");
+      console.log({location,username});
+      const response = await FetchUsersByLocation(location, username);
       if (response.success) {
         setUsers(response.users || []); // Ensure to set users if present
       } else {
@@ -38,7 +41,7 @@ const Connect = () => {
     return () => {
       setUsers([]);
     };
-  }, []); // Empty dependency array to call fetchData once on component mount
+  }, [session]); // Empty dependency array to call fetchData once on component mount
 
   return (
     <>
@@ -62,7 +65,9 @@ const Connect = () => {
                     height={1000}
                     className="w-10 h-fit mx-auto"
                   />
-                  <span className="my-auto text-lg text-center mx-auto">{user.UserName}</span>
+                  <span className="my-auto text-lg text-center mx-auto">
+                    {user.UserName}
+                  </span>
                   <Image
                     alt="Connect"
                     src={"/ConnectPage/HandShake.png"}

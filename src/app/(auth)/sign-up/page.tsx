@@ -84,7 +84,7 @@ const Register = () => {
   }
 
   return (
-    <div className="h-[250vh] overflow-y-scroll w-[60%] mx-auto my-auto py-3">
+    <div className="h-[258vh] overflow-y-scroll w-[60%] mx-auto my-auto py-3">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

@@ -79,7 +79,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
             <SheetTitle className="text-center bg-[#bcb497] w-[85%] sm:w-[75%] mx-auto py-2 px-5 rounded-3xl border border-black">
               {/* Profile */}
 
-              <Link href={"/"} className="flex">
+              <Link href={"/Profile"} className="flex">
                 <Image
                   alt="Home Icon"
                   src={`/icons/SheetIcons/User.png`}
@@ -181,7 +181,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
           <SheetContent className="bg-[#ffedac] bg-transparent sm:w-full w-[60%] overflow-y-scroll">
             <SheetHeader className="  space-y-5">
               <SheetTitle className="text-center bg-[#bcb497] w-[85%] sm:w-[75%] mx-auto py-2 px-5 rounded-3xl border border-black">
-                <Link href={"/"} className="flex">
+                <Link href={"/Profile"} className="flex">
                   <Image
                     alt="Home Icon"
                     src={`/icons/SheetIcons/User.png`}
