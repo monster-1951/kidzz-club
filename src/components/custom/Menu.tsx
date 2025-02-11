@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -25,6 +25,7 @@ interface MenuProps {
   id?: string;
 }
 const Menu = ({ session, uname, Mode, id }: MenuProps) => {
+  const [coinss, setcoinss] = useState(0)
   const { toast } = useToast();
   const ToastCoins = async () => {
     console.log("Toast");
@@ -33,6 +34,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
     if(id){   const response = await axios
       .post("/api/fetchCoins", { _id: id })
       .then((res) => {
+        setcoinss(res.data.Coins)
         console.log(res.data?.Coins);
         toast({
           title: "Success",
@@ -55,6 +57,10 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
     // console.log(response);
     console.log(Mode);
   });
+
+  useEffect(() => {
+    ToastCoins()
+  },[coinss])
   const ParentElements = [
     { Name: "COINS", Route: "/" },
     { Name: "EVENTS", Route: "/Events" },
@@ -132,7 +138,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
                           onClick={ToastCoins}
                           className="my-auto border-none bg-inherit text-black font-bold px-0"
                         >
-                          COINS
+                          {coinss} COINS
                         </Button>
                       ) : (
                         <span className="my-auto">{element.Name}</span>
@@ -251,7 +257,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
                             onClick={ToastCoins}
                             className="my-auto border-none bg-inherit text-white font-bold w-[20vh] text-wrap flex"
                           >
-                            COINS
+                             {coinss}  COINS
                           </Button>
                         ) : (
                           <Button className="my-auto border-none bg-inherit text-white font-bold w-[20vh] text-wrap flex">
