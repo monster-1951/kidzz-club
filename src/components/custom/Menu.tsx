@@ -64,12 +64,14 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
   }, [coinss]);
   const ParentElements = [
     { Name: "COINS", Route: "/" },
+    { Name: "THEME", Route: "/" },
     { Name: "EVENTS", Route: "/Events" },
     { Name: "CART", Route: "/Store/Cart" },
     { Name: "RECIPES", Route: "/Recipes" },
   ];
   const elements = [
     { Name: "COINS", Route: "/" },
+    { Name: "THEME", Route: "/" },
     { Name: "EVENTS", Route: "/Events" },
     { Name: "CART", Route: "/Store/Cart" },
     { Name: "VIRTUAL ASSISTANT", Route: "/VirtualAssistant" },
@@ -81,7 +83,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
           {" "}
           <RxHamburgerMenu />
         </SheetTrigger>
-        <SheetContent className="bg-[#ffedac] sm:w-full w-[60%]">
+        <SheetContent className="bg-[#ffedac] sm:w-full w-[60%] overflow-y-scroll">
           <SheetHeader className="  space-y-5">
             <SheetTitle className="text-center bg-[#bcb497] w-[85%] sm:w-[75%] mx-auto py-2 px-5 rounded-3xl border border-black">
               {/* Profile */}
