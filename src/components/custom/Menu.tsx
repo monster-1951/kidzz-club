@@ -70,8 +70,9 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
     { Name: "RECIPES", Route: "/Recipes" },
   ];
   const elements = [
-    { Name: "COINS", Route: "/" },
     { Name: "THEME", Route: "/" },
+    { Name: "GAMES", Route: "/Games" },
+    { Name: "COINS", Route: "/" },
     { Name: "EVENTS", Route: "/Events" },
     { Name: "CART", Route: "/Store/Cart" },
     { Name: "VIRTUAL ASSISTANT", Route: "/VirtualAssistant" },

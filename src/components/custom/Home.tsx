@@ -73,6 +73,30 @@ const Homee = () => {
               className="rounded-lg h-fit w-[50vh] mx-auto mb-3"
             />
           </Link>
+          <Link
+            href={"/AIBehaviourAnalysis"}
+            className="h-[65%] sm:h-[80%] flex flex-col justify-center"
+          >
+            <Image
+              src={"/HomeIcons/ParentHome/AIBehaviour.jpg"}
+              alt="Home"
+              width={1000}
+              height={1000}
+              className="rounded-lg h-fit w-[50vh] mx-auto mb-3 mt-10"
+            />
+          </Link>
+          <Link
+            href={"/TShirtDesign"}
+            className="h-[65%] sm:h-[80%] flex flex-col justify-center"
+          >
+            <Image
+              src={"/HomeIcons/ParentHome/T-ShirtDesign.png"}
+              alt="Home"
+              width={1000}
+              height={1000}
+              className="rounded-lg h-fit w-[50vh] mx-auto mb-3"
+            />
+          </Link>
         </div>
       </>
     );
