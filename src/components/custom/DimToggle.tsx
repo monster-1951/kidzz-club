@@ -69,7 +69,7 @@ export const DimToggle = () => {
   };
 
   return (
-    <div className="fixed flex items-center gap-2 w-fit h-fit top-24 right-6">
+    <div className="fixed flex items-center gap-2 w-fit h-fit top-7 right-10">
       {showPasswordInput && (
         <form onSubmit={handlePasswordSubmit} className="animate-in slide-in-from-right">
           <div className="glass-effect p-2 rounded-full flex items-center gap-2">

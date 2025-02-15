@@ -5,6 +5,7 @@ import Link from "next/link";
 
 const Footer = () => {
   const [mode, setMode] = useState<string | null>(null);
+  const [isDimmed, setIsDimmed] = useState(false);
   const elements = [
     { Name: "Home", Route: "/" },
     { Name: "Store", Route: "/Store" },
@@ -18,15 +19,23 @@ const Footer = () => {
     { Name: "Explore", Route: "/Explore" },
     { Name: "Videos", Route: "/Videos" },
     { Name: "Tasks", Route: "/Tasks" },
-    
   ];
   useEffect(() => {
     // Ensure that localStorage is only accessed on the client-side
     if (typeof window !== "undefined") {
       const storedMode = localStorage.getItem("Mode");
+      const dimMode = localStorage.getItem("Dim mode");
+      setIsDimmed(dimMode == "enabled" ? true : false);
       setMode(storedMode);
     }
   }, []);
+
+  
+      if (isDimmed) {
+        return (
+          <></>
+        );
+      }
 
   if (mode === "Child Mode") {
     return (

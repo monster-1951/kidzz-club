@@ -13,7 +13,7 @@ const Homee = () => {
     if (typeof window !== "undefined") {
       const storedMode = localStorage.getItem("Mode");
       const dimMode = localStorage.getItem("Dim mode");
-      setIsDimmed(dimMode == "enabled");
+      setIsDimmed(dimMode == "enabled"?true:false);
       console.log(isDimmed);
       setMode(storedMode);
     }
@@ -21,19 +21,20 @@ const Homee = () => {
 
   if (isDimmed) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-800">
-        <DimToggle />
-        <div className="fixed top-52 w-[80%] mx-auto p-3 flex justify-center ">
-          Virtual Switch of mode is enabled . Click on the top right icon and
-          enter the password to disable the Virtual Switch of mode
-        </div>
-      </div>
+      <></>
+      // <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-800">
+      //   <DimToggle />
+      //   <div className="fixed top-52 w-[80%] mx-auto p-3 flex justify-center ">
+      //     Virtual Switch of mode is enabled . Click on the top right icon and
+      //     enter the password to disable the Virtual Switch of mode
+      //   </div>
+      // </div>
     );
   }
   if (mode === "Child Mode") {
     return (
       <>
-        <DimToggle />
+        {/* <DimToggle /> */}
         <div className="p-3 py-5 grid grid-flow-row md:grid-cols-2  overflow-scroll sm:h-[80vh] space-y-3 mt-5 mb-5">
           <Link
             href={"/News"}

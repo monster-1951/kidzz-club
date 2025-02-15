@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useTimer } from "@/app/context/TimerContext";
 import TimeDisplay from "@/components/custom/TimeDisplay";
 import TimeSetter from "@/components/custom/TimeSetter";
 import PasswordDialog from "@/components/custom/PasswordDialog";
@@ -9,77 +9,19 @@ import { useToast } from "@/hooks/use-toast";
 import { Card } from "@/components/ui/card";
 
 const Timer = () => {
-  const [totalSeconds, setTotalSeconds] = useState<number>(0);
-  const [isRunning, setIsRunning] = useState<boolean>(false);
-  const [showPasswordDialog, setShowPasswordDialog] = useState<boolean>(false);
+  const { totalSeconds, isRunning, setTime, resetTime } = useTimer();
   const { toast } = useToast();
-  const router = useRouter(); // Initialize router
+  const [showPasswordDialog, setShowPasswordDialog] = useState<boolean>(false);
 
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
 
-  const handleSetTime = (hours: number, minutes: number) => {
-    const newTotalSeconds = hours * 3600 + minutes * 60;
-    setTotalSeconds(newTotalSeconds);
-    setIsRunning(true);
-
-    // Update local storage when the timer starts
-    localStorage.setItem("Dim mode", "disabled");
-
-    toast({
-      title: "Timer Started",
-      description: `Time set for ${hours}h ${minutes}m`,
-    });
-  };
-
-  const handleReset = useCallback(() => {
-    setIsRunning(false);
-    setTotalSeconds(0);
-
-    // Reset "Dim mode" when the timer stops manually
-    localStorage.setItem("Dim mode", "disabled");
-
-    toast({
-      title: "Timer Reset",
-      description: "You can now set a new time limit",
-    });
-  }, [toast]);
-
   const handlePasswordVerify = (success: boolean) => {
     if (success) {
-      handleReset();
+      resetTime();
     }
   };
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-
-    if (isRunning && totalSeconds > 0) {
-      interval = setInterval(() => {
-        setTotalSeconds((prev) => {
-          if (prev <= 1) {
-            setIsRunning(false);
-            setShowPasswordDialog(true);
-
-            // Update local storage when time runs out
-            localStorage.setItem("Dim mode", "enabled");
-
-            // Redirect to "/" and reload the page
-            router.push("/");
-            setTimeout(() => {
-              window.location.reload();
-            }, 500);
-
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-
-    return () => clearInterval(interval);
-  }, [isRunning, totalSeconds, router]);
 
   return (
     <div className="mb-24 min-h-screen bg-gradient-to-br from-mint-50 to-mint-100 flex items-center justify-center p-4">
@@ -96,7 +38,7 @@ const Timer = () => {
             <TimeDisplay hours={hours} minutes={minutes} seconds={seconds} />
 
             {!isRunning && totalSeconds === 0 ? (
-              <TimeSetter onSetTime={handleSetTime} />
+              <TimeSetter onSetTime={setTime} />
             ) : (
               <Button
                 onClick={() => setShowPasswordDialog(true)}

@@ -4,7 +4,8 @@ import "./globals.css";
 import Header from "@/components/custom/Header";
 import Footer from "@/components/custom/Footer";
 import AuthProvider from "@/context/AuthProvider";
-import { Toaster } from "@/components/ui/toaster"
+import { TimerProvider } from "@/app/context/TimerContext";
+import { Toaster } from "@/components/ui/toaster";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,17 +28,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <AuthProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {" "}
-          <Toaster />
-          <Header />
-          {children}
-          <Footer />
-        </body>
-      </AuthProvider>
+      <TimerProvider>
+        <AuthProvider>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            {" "}
+            <Toaster />
+            <Header />
+            {children}
+            <Footer />
+          </body>
+        </AuthProvider>
+      </TimerProvider>
     </html>
   );
 }
