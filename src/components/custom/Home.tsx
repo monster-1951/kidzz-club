@@ -97,7 +97,7 @@ const Homee = () => {
             className="h-[65%] sm:h-[80%] flex flex-col justify-center"
           >
             <Image
-              src={"/HomeIcons/ParentHome/AIBehaviour.jpg"}
+              src={"/HomeIcons/ParentHome/AIBehaviour.png"}
               alt="Home"
               width={1000}
               height={1000}
