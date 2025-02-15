@@ -23,9 +23,10 @@ const Homee = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-800">
         <DimToggle />
-      <div className="fixed top-52 w-[80%] mx-auto p-3 flex justify-center ">
-      Virtual Switch of mode is enabled . Click on the top right icon and enter the password to disable the Virtual Switch of mode
-      </div>
+        <div className="fixed top-52 w-[80%] mx-auto p-3 flex justify-center ">
+          Virtual Switch of mode is enabled . Click on the top right icon and
+          enter the password to disable the Virtual Switch of mode
+        </div>
       </div>
     );
   }
@@ -64,6 +65,7 @@ const Homee = () => {
   } else {
     return (
       <>
+        <DimToggle />
         <div className="p-3 py-5 grid grid-flow-row md:grid-cols-2  overflow-scroll sm:h-[80vh] space-y-3 mt-5 mb-28">
           <Link
             href={"/Events"}
