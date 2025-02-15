@@ -64,6 +64,7 @@ const Menu = ({ session, uname, Mode, id }: MenuProps) => {
   }, [coinss]);
   const ParentElements = [
     { Name: "COINS", Route: "/" },
+    { Name: "TIMER", Route: "/Timer" },
     { Name: "THEME", Route: "/" },
     { Name: "EVENTS", Route: "/Events" },
     { Name: "CART", Route: "/Store/Cart" },

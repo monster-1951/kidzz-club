@@ -23,7 +23,7 @@ const Homee = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-800">
         <DimToggle />
-      <div className="fixed top-52 w-[80%] mx-auto p-3 flex justify-center">
+      <div className="fixed top-52 w-[80%] mx-auto p-3 flex justify-center ">
       Virtual Switch of mode is enabled . Click on the top right icon and enter the password to disable the Virtual Switch of mode
       </div>
       </div>
